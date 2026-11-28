@@ -14,6 +14,7 @@ final readonly class AttendanceService
     public function __construct(
         private ConnectionInterface $db,
         private EmployeeRepository $employees,
+        private NotificationService $notifications,
     ) {}
 
     /**
@@ -4130,16 +4131,17 @@ final readonly class AttendanceService
         }
 
         try {
-            $this->db->createCommand()->insert('system_core.tbl_notifications', [
-                'icno' => $icno,
-                'title' => $title,
-                'content' => substr($content, 0, 1000),
-                'ntf_dt' => $dateTime,
-                'status' => 0,
-            ])->execute();
+            $this->notifications->create($icno, $title, $content, $this->notificationDate($dateTime));
         } catch (\Throwable) {
             // Notification failure must not block the attendance workflow update.
         }
+    }
+
+    private function notificationDate(string $dateTime): ?\DateTimeImmutable
+    {
+        $date = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $dateTime);
+
+        return $date instanceof \DateTimeImmutable ? $date : null;
     }
 
     private function refreshPendingTask(string $icno, ?int $commandId): void

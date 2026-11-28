@@ -23,7 +23,14 @@ final readonly class CutiReferenceService
             FROM hrm.cuti_leave_type
             WHERE jenis_cuti_papar IN (1, 2)
               AND jenis_cuti_id IN (1, 2, 20, 21, 28)
-            ORDER BY jenis_cuti_catatan, jenis_cuti_id
+            ORDER BY CASE jenis_cuti_id
+                WHEN 1 THEN 1
+                WHEN 2 THEN 2
+                WHEN 20 THEN 3
+                WHEN 21 THEN 4
+                WHEN 28 THEN 5
+                ELSE 99
+            END
             SQL,
         )->queryAll();
 

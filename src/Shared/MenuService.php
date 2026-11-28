@@ -42,6 +42,7 @@ final readonly class MenuService
         'lantikan/index' => '/lantikan/index',
         'lantikan/lantikan-belum-selesai' => '/lantikan/lantikan-belum-selesai',
         'lantikan/lssu-index' => '/lantikan/lssu-index',
+        'perkhidmatan/index' => '/perkhidmatan/index',
         'kehadiran/index' => '/kehadiran/index',
         'kehadiran/laporan-kehadiran' => '/kehadiran/laporan-kehadiran',
         'kehadiran/tindakan_ketidakpatuhan' => '/kehadiran/tindakan_ketidakpatuhan',

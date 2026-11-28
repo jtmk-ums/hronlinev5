@@ -12,6 +12,7 @@ final readonly class CutiRecordService
     public function __construct(
         private ConnectionInterface $db,
         private EmployeeRepository $employees,
+        private NotificationService $notifications,
     ) {}
 
     /**
@@ -514,16 +515,17 @@ final readonly class CutiRecordService
         }
 
         try {
-            $this->db->createCommand()->insert('system_core.tbl_notifications', [
-                'icno' => $icno,
-                'title' => $title,
-                'content' => substr($content, 0, 1000),
-                'ntf_dt' => $dateTime,
-                'status' => 0,
-            ])->execute();
+            $this->notifications->create($icno, $title, $content, $this->notificationDate($dateTime));
         } catch (\Throwable) {
             // Notification failure should not block the leave workflow update.
         }
+    }
+
+    private function notificationDate(string $dateTime): ?\DateTimeImmutable
+    {
+        $date = \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', $dateTime);
+
+        return $date instanceof \DateTimeImmutable ? $date : null;
     }
 
     /**

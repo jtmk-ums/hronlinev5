@@ -15,6 +15,33 @@ return [
             Route::get('/login')
                 ->action(Web\Login\Action::class)
                 ->name('login'),
+            Route::get('/site/logout')
+                ->action(Web\Logout\Action::class)
+                ->name('site-logout'),
+            Route::get('/site/notifikasi')
+                ->action(Web\Notification\ListAction::class)
+                ->name('site-notifikasi'),
+            Route::get('/site/read_noti')
+                ->action(Web\Notification\ReadAction::class)
+                ->name('site-read-noti'),
+            Route::get('/site/noti-read')
+                ->action(Web\Notification\ReadAction::class)
+                ->name('site-noti-read'),
+            Route::get('/site/searching')
+                ->action(Web\Notification\SearchAction::class)
+                ->name('site-searching'),
+            Route::get('/site/archive')
+                ->action(Web\Notification\ArchiveListAction::class)
+                ->name('site-archive'),
+            Route::get('/site/read-arc')
+                ->action(Web\Notification\ArchiveReadAction::class)
+                ->name('site-read-arc'),
+            Route::post('/site/mark_read')
+                ->action(Web\Notification\MarkReadAction::class)
+                ->name('site-mark-read'),
+            Route::post('/site/send_archive')
+                ->action(Web\Notification\ArchiveAction::class)
+                ->name('site-send-archive'),
             Route::get('/dashboard')
                 ->action(Web\Dashboard\Action::class)
                 ->name('dashboard'),
@@ -486,6 +513,309 @@ return [
             Route::get('/cuti/admin/report-leave-list')
                 ->action(Web\Cuti\Admin\AdminAction::class)
                 ->name('cuti-admin-report-leave-list'),
+            Route::get('/perkhidmatan/index')
+                ->action(Web\Perkhidmatan\IndexAction::class)
+                ->name('perkhidmatan-index'),
+            Route::get('/perkhidmatan/view')
+                ->action(Web\Perkhidmatan\ViewAction::class)
+                ->name('perkhidmatan-view'),
+            Route::get('/perkhidmatan/viewuser')
+                ->action(Web\Perkhidmatan\SelfViewAction::class)
+                ->name('perkhidmatan-viewuser'),
+            Route::get('/perkhidmatan/redirectview')
+                ->action(Web\Perkhidmatan\RedirectViewAction::class)
+                ->name('perkhidmatan-redirectview'),
+            Route::get('/perkhidmatan/tree-stat')
+                ->action(Web\Perkhidmatan\TimelineAction::class)
+                ->name('perkhidmatan-tree-stat'),
+            Route::get('/perkhidmatan/status-lantikan/view')
+                ->action(Web\Perkhidmatan\Sections\StatusLantikan\ViewAction::class)
+                ->name('perkhidmatan-status-lantikan-view'),
+            Route::get('/perkhidmatan/status-lantikan/viewuser')
+                ->action(Web\Perkhidmatan\Sections\StatusLantikan\ViewAction::class)
+                ->name('perkhidmatan-status-lantikan-viewuser'),
+            Route::get('/perkhidmatan/status-lantikan/lihat')
+                ->action(Web\Perkhidmatan\Sections\StatusLantikan\DetailAction::class)
+                ->name('perkhidmatan-status-lantikan-lihat'),
+            Route::get('/perkhidmatan/status-sandangan/view')
+                ->action(Web\Perkhidmatan\Sections\StatusSandangan\ViewAction::class)
+                ->name('perkhidmatan-status-sandangan-view'),
+            Route::get('/perkhidmatan/status-sandangan/viewuser')
+                ->action(Web\Perkhidmatan\Sections\StatusSandangan\ViewAction::class)
+                ->name('perkhidmatan-status-sandangan-viewuser'),
+            Route::get('/perkhidmatan/status-sandangan/lihat')
+                ->action(Web\Perkhidmatan\Sections\StatusSandangan\DetailAction::class)
+                ->name('perkhidmatan-status-sandangan-lihat'),
+            Route::get('/perkhidmatan/status-perkhidmatan/view')
+                ->action(Web\Perkhidmatan\Sections\StatusPerkhidmatan\ViewAction::class)
+                ->name('perkhidmatan-status-perkhidmatan-view'),
+            Route::get('/perkhidmatan/status-perkhidmatan/viewuser')
+                ->action(Web\Perkhidmatan\Sections\StatusPerkhidmatan\ViewAction::class)
+                ->name('perkhidmatan-status-perkhidmatan-viewuser'),
+            Route::get('/perkhidmatan/status-perkhidmatan/lihat')
+                ->action(Web\Perkhidmatan\Sections\StatusPerkhidmatan\DetailAction::class)
+                ->name('perkhidmatan-status-perkhidmatan-lihat'),
+            Route::get('/perkhidmatan/pihak-berkuasa/view')
+                ->action(Web\Perkhidmatan\Sections\PihakBerkuasa\ViewAction::class)
+                ->name('perkhidmatan-pihak-berkuasa-view'),
+            Route::get('/perkhidmatan/pihak-berkuasa/viewuser')
+                ->action(Web\Perkhidmatan\Sections\PihakBerkuasa\ViewAction::class)
+                ->name('perkhidmatan-pihak-berkuasa-viewuser'),
+            Route::get('/perkhidmatan/pihak-berkuasa/lihat')
+                ->action(Web\Perkhidmatan\Sections\PihakBerkuasa\DetailAction::class)
+                ->name('perkhidmatan-pihak-berkuasa-lihat'),
+            Route::get('/perkhidmatan/beban-perkhidmatan/view')
+                ->action(Web\Perkhidmatan\Sections\BebanPerkhidmatan\ViewAction::class)
+                ->name('perkhidmatan-beban-perkhidmatan-view'),
+            Route::get('/perkhidmatan/beban-perkhidmatan/viewuser')
+                ->action(Web\Perkhidmatan\Sections\BebanPerkhidmatan\ViewAction::class)
+                ->name('perkhidmatan-beban-perkhidmatan-viewuser'),
+            Route::get('/perkhidmatan/beban-perkhidmatan/lihat')
+                ->action(Web\Perkhidmatan\Sections\BebanPerkhidmatan\DetailAction::class)
+                ->name('perkhidmatan-beban-perkhidmatan-lihat'),
+            Route::get('/perkhidmatan/waktu-bekerja/view')
+                ->action(Web\Perkhidmatan\Sections\WaktuBekerja\ViewAction::class)
+                ->name('perkhidmatan-waktu-bekerja-view'),
+            Route::get('/perkhidmatan/waktu-bekerja/viewuser')
+                ->action(Web\Perkhidmatan\Sections\WaktuBekerja\ViewAction::class)
+                ->name('perkhidmatan-waktu-bekerja-viewuser'),
+            Route::get('/perkhidmatan/waktu-bekerja/lihat')
+                ->action(Web\Perkhidmatan\Sections\WaktuBekerja\DetailAction::class)
+                ->name('perkhidmatan-waktu-bekerja-lihat'),
+            Route::get('/perkhidmatan/status-pengesahan/view')
+                ->action(Web\Perkhidmatan\Sections\StatusPengesahan\ViewAction::class)
+                ->name('perkhidmatan-status-pengesahan-view'),
+            Route::get('/perkhidmatan/status-pengesahan/viewuser')
+                ->action(Web\Perkhidmatan\Sections\StatusPengesahan\ViewAction::class)
+                ->name('perkhidmatan-status-pengesahan-viewuser'),
+            Route::get('/perkhidmatan/status-pengesahan/lihat')
+                ->action(Web\Perkhidmatan\Sections\StatusPengesahan\DetailAction::class)
+                ->name('perkhidmatan-status-pengesahan-lihat'),
+            Route::get('/perkhidmatan/tempoh-percubaan/view')
+                ->action(Web\Perkhidmatan\Sections\TempohPercubaan\ViewAction::class)
+                ->name('perkhidmatan-tempoh-percubaan-view'),
+            Route::get('/perkhidmatan/tempoh-percubaan/viewuser')
+                ->action(Web\Perkhidmatan\Sections\TempohPercubaan\ViewAction::class)
+                ->name('perkhidmatan-tempoh-percubaan-viewuser'),
+            Route::get('/perkhidmatan/tempoh-percubaan/lihat')
+                ->action(Web\Perkhidmatan\Sections\TempohPercubaan\DetailAction::class)
+                ->name('perkhidmatan-tempoh-percubaan-lihat'),
+            Route::get('/perkhidmatan/jenis-gaji/view')
+                ->action(Web\Perkhidmatan\Sections\JenisGaji\ViewAction::class)
+                ->name('perkhidmatan-jenis-gaji-view'),
+            Route::get('/perkhidmatan/jenis-gaji/viewuser')
+                ->action(Web\Perkhidmatan\Sections\JenisGaji\ViewAction::class)
+                ->name('perkhidmatan-jenis-gaji-viewuser'),
+            Route::get('/perkhidmatan/jenis-gaji/lihat')
+                ->action(Web\Perkhidmatan\Sections\JenisGaji\DetailAction::class)
+                ->name('perkhidmatan-jenis-gaji-lihat'),
+            Route::get('/perkhidmatan/jenis-perkhidmatan/view')
+                ->action(Web\Perkhidmatan\Sections\JenisPerkhidmatan\ViewAction::class)
+                ->name('perkhidmatan-jenis-perkhidmatan-view'),
+            Route::get('/perkhidmatan/jenis-perkhidmatan/viewuser')
+                ->action(Web\Perkhidmatan\Sections\JenisPerkhidmatan\ViewAction::class)
+                ->name('perkhidmatan-jenis-perkhidmatan-viewuser'),
+            Route::get('/perkhidmatan/jenis-perkhidmatan/lihat')
+                ->action(Web\Perkhidmatan\Sections\JenisPerkhidmatan\DetailAction::class)
+                ->name('perkhidmatan-jenis-perkhidmatan-lihat'),
+            Route::get('/perkhidmatan/pergerakan-gaji/view')
+                ->action(Web\Perkhidmatan\Sections\PergerakanGaji\ViewAction::class)
+                ->name('perkhidmatan-pergerakan-gaji-view'),
+            Route::get('/perkhidmatan/pergerakan-gaji/viewuser')
+                ->action(Web\Perkhidmatan\Sections\PergerakanGaji\ViewAction::class)
+                ->name('perkhidmatan-pergerakan-gaji-viewuser'),
+            Route::get('/perkhidmatan/pergerakan-gaji/lihat')
+                ->action(Web\Perkhidmatan\Sections\PergerakanGaji\DetailAction::class)
+                ->name('perkhidmatan-pergerakan-gaji-lihat'),
+            Route::get('/perkhidmatan/fail-perkhidmatan/view')
+                ->action(Web\Perkhidmatan\Sections\FailPerkhidmatan\ViewAction::class)
+                ->name('perkhidmatan-fail-perkhidmatan-view'),
+            Route::get('/perkhidmatan/fail-perkhidmatan/viewuser')
+                ->action(Web\Perkhidmatan\Sections\FailPerkhidmatan\ViewAction::class)
+                ->name('perkhidmatan-fail-perkhidmatan-viewuser'),
+            Route::get('/perkhidmatan/fail-perkhidmatan/lihat')
+                ->action(Web\Perkhidmatan\Sections\FailPerkhidmatan\DetailAction::class)
+                ->name('perkhidmatan-fail-perkhidmatan-lihat'),
+            Route::get('/perkhidmatan/status-pencen/view')
+                ->action(Web\Perkhidmatan\Sections\StatusPencen\ViewAction::class)
+                ->name('perkhidmatan-status-pencen-view'),
+            Route::get('/perkhidmatan/status-pencen/viewuser')
+                ->action(Web\Perkhidmatan\Sections\StatusPencen\ViewAction::class)
+                ->name('perkhidmatan-status-pencen-viewuser'),
+            Route::get('/perkhidmatan/status-pencen/lihat')
+                ->action(Web\Perkhidmatan\Sections\StatusPencen\DetailAction::class)
+                ->name('perkhidmatan-status-pencen-lihat'),
+            Route::get('/perkhidmatan/mata-gaji/view')
+                ->action(Web\Perkhidmatan\Sections\MataGaji\ViewAction::class)
+                ->name('perkhidmatan-mata-gaji-view'),
+            Route::get('/perkhidmatan/mata-gaji/viewuser')
+                ->action(Web\Perkhidmatan\Sections\MataGaji\ViewAction::class)
+                ->name('perkhidmatan-mata-gaji-viewuser'),
+            Route::get('/perkhidmatan/mata-gaji/lihat')
+                ->action(Web\Perkhidmatan\Sections\MataGaji\DetailAction::class)
+                ->name('perkhidmatan-mata-gaji-lihat'),
+            Route::get('/perkhidmatan/pihak-berkuasa-pencen/view')
+                ->action(Web\Perkhidmatan\Sections\PihakBerkuasaPencen\ViewAction::class)
+                ->name('perkhidmatan-pihak-berkuasa-pencen-view'),
+            Route::get('/perkhidmatan/pihak-berkuasa-pencen/viewuser')
+                ->action(Web\Perkhidmatan\Sections\PihakBerkuasaPencen\ViewAction::class)
+                ->name('perkhidmatan-pihak-berkuasa-pencen-viewuser'),
+            Route::get('/perkhidmatan/pihak-berkuasa-pencen/lihat')
+                ->action(Web\Perkhidmatan\Sections\PihakBerkuasaPencen\DetailAction::class)
+                ->name('perkhidmatan-pihak-berkuasa-pencen-lihat'),
+            Route::get('/perkhidmatan/umur-bersara/view')
+                ->action(Web\Perkhidmatan\Sections\UmurBersara\ViewAction::class)
+                ->name('perkhidmatan-umur-bersara-view'),
+            Route::get('/perkhidmatan/umur-bersara/viewuser')
+                ->action(Web\Perkhidmatan\Sections\UmurBersara\ViewAction::class)
+                ->name('perkhidmatan-umur-bersara-viewuser'),
+            Route::get('/perkhidmatan/umur-bersara/lihat')
+                ->action(Web\Perkhidmatan\Sections\UmurBersara\DetailAction::class)
+                ->name('perkhidmatan-umur-bersara-lihat'),
+            Route::get('/perkhidmatan/sejarah-penempatan/view')
+                ->action(Web\Perkhidmatan\Sections\SejarahPenempatan\ViewAction::class)
+                ->name('perkhidmatan-sejarah-penempatan-view'),
+            Route::get('/perkhidmatan/sejarah-penempatan/viewuser')
+                ->action(Web\Perkhidmatan\Sections\SejarahPenempatan\ViewAction::class)
+                ->name('perkhidmatan-sejarah-penempatan-viewuser'),
+            Route::get('/perkhidmatan/sejarah-penempatan/lihat')
+                ->action(Web\Perkhidmatan\Sections\SejarahPenempatan\DetailAction::class)
+                ->name('perkhidmatan-sejarah-penempatan-lihat'),
+            Route::get('/perkhidmatan/perubahan-data/view')
+                ->action(Web\Perkhidmatan\Sections\PerubahanData\ViewAction::class)
+                ->name('perkhidmatan-perubahan-data-view'),
+            Route::get('/perkhidmatan/perubahan-data/viewuser')
+                ->action(Web\Perkhidmatan\Sections\PerubahanData\ViewAction::class)
+                ->name('perkhidmatan-perubahan-data-viewuser'),
+            Route::get('/perkhidmatan/perubahan-data/lihat')
+                ->action(Web\Perkhidmatan\Sections\PerubahanData\DetailAction::class)
+                ->name('perkhidmatan-perubahan-data-lihat'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/status-lantikan/tambah')
+                ->action(Web\Perkhidmatan\Sections\StatusLantikan\FormAction::class)
+                ->name('perkhidmatan-status-lantikan-tambah'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/status-lantikan/kemaskini')
+                ->action(Web\Perkhidmatan\Sections\StatusLantikan\FormAction::class)
+                ->name('perkhidmatan-status-lantikan-kemaskini'),
+            Route::post('/perkhidmatan/status-lantikan/padam')
+                ->action(Web\Perkhidmatan\Sections\StatusLantikan\DeleteAction::class)
+                ->name('perkhidmatan-status-lantikan-padam'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/status-perkhidmatan/tambah')
+                ->action(Web\Perkhidmatan\Sections\StatusPerkhidmatan\FormAction::class)
+                ->name('perkhidmatan-status-perkhidmatan-tambah'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/status-perkhidmatan/kemaskini')
+                ->action(Web\Perkhidmatan\Sections\StatusPerkhidmatan\FormAction::class)
+                ->name('perkhidmatan-status-perkhidmatan-kemaskini'),
+            Route::post('/perkhidmatan/status-perkhidmatan/padam')
+                ->action(Web\Perkhidmatan\Sections\StatusPerkhidmatan\DeleteAction::class)
+                ->name('perkhidmatan-status-perkhidmatan-padam'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/pihak-berkuasa/tambah')
+                ->action(Web\Perkhidmatan\Sections\PihakBerkuasa\FormAction::class)
+                ->name('perkhidmatan-pihak-berkuasa-tambah'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/pihak-berkuasa/kemaskini')
+                ->action(Web\Perkhidmatan\Sections\PihakBerkuasa\FormAction::class)
+                ->name('perkhidmatan-pihak-berkuasa-kemaskini'),
+            Route::post('/perkhidmatan/pihak-berkuasa/padam')
+                ->action(Web\Perkhidmatan\Sections\PihakBerkuasa\DeleteAction::class)
+                ->name('perkhidmatan-pihak-berkuasa-padam'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/beban-perkhidmatan/tambah')
+                ->action(Web\Perkhidmatan\Sections\BebanPerkhidmatan\FormAction::class)
+                ->name('perkhidmatan-beban-perkhidmatan-tambah'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/beban-perkhidmatan/kemaskini')
+                ->action(Web\Perkhidmatan\Sections\BebanPerkhidmatan\FormAction::class)
+                ->name('perkhidmatan-beban-perkhidmatan-kemaskini'),
+            Route::post('/perkhidmatan/beban-perkhidmatan/padam')
+                ->action(Web\Perkhidmatan\Sections\BebanPerkhidmatan\DeleteAction::class)
+                ->name('perkhidmatan-beban-perkhidmatan-padam'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/status-pengesahan/tambah')
+                ->action(Web\Perkhidmatan\Sections\StatusPengesahan\FormAction::class)
+                ->name('perkhidmatan-status-pengesahan-tambah'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/status-pengesahan/kemaskini')
+                ->action(Web\Perkhidmatan\Sections\StatusPengesahan\FormAction::class)
+                ->name('perkhidmatan-status-pengesahan-kemaskini'),
+            Route::post('/perkhidmatan/status-pengesahan/padam')
+                ->action(Web\Perkhidmatan\Sections\StatusPengesahan\DeleteAction::class)
+                ->name('perkhidmatan-status-pengesahan-padam'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/tempoh-percubaan/tambah')
+                ->action(Web\Perkhidmatan\Sections\TempohPercubaan\FormAction::class)
+                ->name('perkhidmatan-tempoh-percubaan-tambah'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/tempoh-percubaan/kemaskini')
+                ->action(Web\Perkhidmatan\Sections\TempohPercubaan\FormAction::class)
+                ->name('perkhidmatan-tempoh-percubaan-kemaskini'),
+            Route::post('/perkhidmatan/tempoh-percubaan/padam')
+                ->action(Web\Perkhidmatan\Sections\TempohPercubaan\DeleteAction::class)
+                ->name('perkhidmatan-tempoh-percubaan-padam'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/jenis-gaji/tambah')
+                ->action(Web\Perkhidmatan\Sections\JenisGaji\FormAction::class)
+                ->name('perkhidmatan-jenis-gaji-tambah'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/jenis-gaji/kemaskini')
+                ->action(Web\Perkhidmatan\Sections\JenisGaji\FormAction::class)
+                ->name('perkhidmatan-jenis-gaji-kemaskini'),
+            Route::post('/perkhidmatan/jenis-gaji/padam')
+                ->action(Web\Perkhidmatan\Sections\JenisGaji\DeleteAction::class)
+                ->name('perkhidmatan-jenis-gaji-padam'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/jenis-perkhidmatan/tambah')
+                ->action(Web\Perkhidmatan\Sections\JenisPerkhidmatan\FormAction::class)
+                ->name('perkhidmatan-jenis-perkhidmatan-tambah'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/jenis-perkhidmatan/kemaskini')
+                ->action(Web\Perkhidmatan\Sections\JenisPerkhidmatan\FormAction::class)
+                ->name('perkhidmatan-jenis-perkhidmatan-kemaskini'),
+            Route::post('/perkhidmatan/jenis-perkhidmatan/padam')
+                ->action(Web\Perkhidmatan\Sections\JenisPerkhidmatan\DeleteAction::class)
+                ->name('perkhidmatan-jenis-perkhidmatan-padam'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/pergerakan-gaji/tambah')
+                ->action(Web\Perkhidmatan\Sections\PergerakanGaji\FormAction::class)
+                ->name('perkhidmatan-pergerakan-gaji-tambah'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/pergerakan-gaji/kemaskini')
+                ->action(Web\Perkhidmatan\Sections\PergerakanGaji\FormAction::class)
+                ->name('perkhidmatan-pergerakan-gaji-kemaskini'),
+            Route::post('/perkhidmatan/pergerakan-gaji/padam')
+                ->action(Web\Perkhidmatan\Sections\PergerakanGaji\DeleteAction::class)
+                ->name('perkhidmatan-pergerakan-gaji-padam'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/fail-perkhidmatan/tambah')
+                ->action(Web\Perkhidmatan\Sections\FailPerkhidmatan\FormAction::class)
+                ->name('perkhidmatan-fail-perkhidmatan-tambah'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/fail-perkhidmatan/kemaskini')
+                ->action(Web\Perkhidmatan\Sections\FailPerkhidmatan\FormAction::class)
+                ->name('perkhidmatan-fail-perkhidmatan-kemaskini'),
+            Route::post('/perkhidmatan/fail-perkhidmatan/padam')
+                ->action(Web\Perkhidmatan\Sections\FailPerkhidmatan\DeleteAction::class)
+                ->name('perkhidmatan-fail-perkhidmatan-padam'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/status-pencen/tambah')
+                ->action(Web\Perkhidmatan\Sections\StatusPencen\FormAction::class)
+                ->name('perkhidmatan-status-pencen-tambah'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/status-pencen/kemaskini')
+                ->action(Web\Perkhidmatan\Sections\StatusPencen\FormAction::class)
+                ->name('perkhidmatan-status-pencen-kemaskini'),
+            Route::post('/perkhidmatan/status-pencen/padam')
+                ->action(Web\Perkhidmatan\Sections\StatusPencen\DeleteAction::class)
+                ->name('perkhidmatan-status-pencen-padam'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/mata-gaji/tambah')
+                ->action(Web\Perkhidmatan\Sections\MataGaji\FormAction::class)
+                ->name('perkhidmatan-mata-gaji-tambah'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/mata-gaji/kemaskini')
+                ->action(Web\Perkhidmatan\Sections\MataGaji\FormAction::class)
+                ->name('perkhidmatan-mata-gaji-kemaskini'),
+            Route::post('/perkhidmatan/mata-gaji/padam')
+                ->action(Web\Perkhidmatan\Sections\MataGaji\DeleteAction::class)
+                ->name('perkhidmatan-mata-gaji-padam'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/pihak-berkuasa-pencen/tambah')
+                ->action(Web\Perkhidmatan\Sections\PihakBerkuasaPencen\FormAction::class)
+                ->name('perkhidmatan-pihak-berkuasa-pencen-tambah'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/pihak-berkuasa-pencen/kemaskini')
+                ->action(Web\Perkhidmatan\Sections\PihakBerkuasaPencen\FormAction::class)
+                ->name('perkhidmatan-pihak-berkuasa-pencen-kemaskini'),
+            Route::post('/perkhidmatan/pihak-berkuasa-pencen/padam')
+                ->action(Web\Perkhidmatan\Sections\PihakBerkuasaPencen\DeleteAction::class)
+                ->name('perkhidmatan-pihak-berkuasa-pencen-padam'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/umur-bersara/tambah')
+                ->action(Web\Perkhidmatan\Sections\UmurBersara\FormAction::class)
+                ->name('perkhidmatan-umur-bersara-tambah'),
+            Route::methods(['GET', 'POST'], '/perkhidmatan/umur-bersara/kemaskini')
+                ->action(Web\Perkhidmatan\Sections\UmurBersara\FormAction::class)
+                ->name('perkhidmatan-umur-bersara-kemaskini'),
+            Route::post('/perkhidmatan/umur-bersara/padam')
+                ->action(Web\Perkhidmatan\Sections\UmurBersara\DeleteAction::class)
+                ->name('perkhidmatan-umur-bersara-padam'),
             Route::get('/biodata/index')
                 ->action(Web\Biodata\IndexAction::class)
                 ->name('biodata-index'),

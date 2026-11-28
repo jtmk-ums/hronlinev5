@@ -45,15 +45,14 @@ $this->setTitle('Dashboard - ' . $applicationParams->name);
     /** @var list<array{label: string, url: string, external: bool}> $shortcuts */
     $shortcuts = $dashboard['shortcuts'];
     $displayName = trim($staff['CONm'] ?? '');
-    $firstName = strtok($displayName, ' ') ?: $displayName;
     ?>
 
     <main class="dashboard-page">
         <section class="profile-card page-main-card dashboard-main-card">
         <div class="dashboard-band dashboard-heading page-card-heading">
             <div>
-                <h1>Selamat datang, <?= Html::encode($firstName) ?></h1>
-                <p><?= Html::encode($displayName) ?> · <?= Html::encode((string) $dashboard['icno']) ?></p>
+                <h1>Selamat datang</h1>
+                <p><?= Html::encode($displayName) ?></p>
             </div>
             <a class="button-link button-link-secondary" href="/external-login">
                 <i data-lucide="user-round-cog"></i>
